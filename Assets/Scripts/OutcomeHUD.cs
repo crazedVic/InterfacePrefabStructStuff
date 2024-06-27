@@ -8,18 +8,10 @@ public class OutcomeHUD : BaseOutcome
     public Text messageText;
     public string message;
     public float timeToLive;
-    private float elapsedTime;
+    private float elapsedTime = 0f;
 
-    protected override void Start()
+    protected  void Update()
     {
-        base.Start(); // Call the base class Start method if needed
-        elapsedTime = 0f;
-    }
-
-    protected override void Update()
-    {
-        base.Update(); // Call the base class Update method if needed
-
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= timeToLive)
         {

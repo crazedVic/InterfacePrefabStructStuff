@@ -48,6 +48,7 @@ public class OutcomeManager : MonoBehaviour
                 var outcome = outcomeProbability.Outcome;
                 if (outcome != null)
                 {
+                    // need to grab bullseye position and render it from here
                     Debug.Log(outcome.Bullseye.transform.position);
                     // wait to hit, then call:
                     outcome.Execute();

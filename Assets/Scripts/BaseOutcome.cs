@@ -1,11 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BaseOutcome : MonoBehaviour, IOutcome
 {
     public Vector3 targetRotation;
-    public GameObject Bullseye { get; set; }
+    private GameObject bullseye;
+
+    public GameObject Bullseye
+    {
+        get {
+
+            bullseye = GetComponentsInChildren<Transform>(true)
+                .FirstOrDefault(t => t.CompareTag("Bullseye"))?.gameObject;
+
+            if (bullseye == null)
+            {
+                Debug.LogError("Child with tag Bullseye not found");
+            }
+
+            return bullseye;
+
+        }
+        set { bullseye = value; }
+    }
 
     public Vector3 TargetRotation
     {
@@ -13,30 +33,13 @@ public abstract class BaseOutcome : MonoBehaviour, IOutcome
         set { targetRotation = value; }
     }
 
-    protected virtual void Update()
-    {
 
-    }
-
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        Debug.Log("Base Outcome Start");
+        Debug.Log("Base Outcome Awake");
         // Find the first child with the tag "Bullseye" and assign it to Bullseye
-        foreach (Transform child in transform)
-        {
-            if (child.CompareTag("Bullseye"))
-            {
-                Bullseye = child.gameObject;
-                break;
-            }
-        }
-        if (Bullseye == null)
-        {
-            Debug.LogError("Child with tag Bullseye not found");
-        }
+        
     }
-
-  
 
     public abstract void Execute();
 }
