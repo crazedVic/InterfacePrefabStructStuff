@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1428071054978215985}
   - component: {fileID: 2585019344533135307}
   - component: {fileID: 5124843760424490261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullseye
   m_TagString: Bullseye
   m_Icon: {fileID: 0}

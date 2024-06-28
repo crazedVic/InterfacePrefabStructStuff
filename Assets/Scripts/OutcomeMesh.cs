@@ -9,7 +9,7 @@ public class OutcomeMesh : BaseOutcome
         // Implementation for Outcome A
         Debug.Log("Outcome Mesh executed");
         // Example: Rotate the GameObject to the target rotation
-        transform.rotation = Quaternion.Euler(targetRotation);
+        transform.rotation = Quaternion.Euler(TargetRotation);
         // Example: Move the GameObject to the bullseye position
         transform.position = Bullseye.transform.position;
 

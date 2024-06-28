@@ -6,13 +6,15 @@ using UnityEngine;
 
 public abstract class BaseOutcome : MonoBehaviour, IOutcome
 {
-    public Vector3 targetRotation;
-    private GameObject bullseye;
+    [SerializeField] private Vector3 targetRotation;
+    [SerializeField] private GameObject bullseye;
+    [SerializeField] private float timeToLive;
+    private float elapsedTime = 0f;
 
-    public GameObject Bullseye
+    public GameObject Bullseye //{ get; set; }
     {
-        get {
-
+        get
+        {
             bullseye = GetComponentsInChildren<Transform>(true)
                 .FirstOrDefault(t => t.CompareTag("Bullseye"))?.gameObject;
 
@@ -26,19 +28,30 @@ public abstract class BaseOutcome : MonoBehaviour, IOutcome
         }
         set { bullseye = value; }
     }
-
+    [SerializeField]
     public Vector3 TargetRotation
     {
         get { return targetRotation; }
         set { targetRotation = value; }
     }
 
-
-    protected virtual void Awake()
+    public float TimeToLive
     {
-        Debug.Log("Base Outcome Awake");
-        // Find the first child with the tag "Bullseye" and assign it to Bullseye
-        
+        get { return timeToLive; }
+        set { TimeToLive = value; }
+    }
+
+    protected void Update()
+    {
+        if (timeToLive > 0f)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= timeToLive)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
     public abstract void Execute();
